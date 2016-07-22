@@ -2,6 +2,7 @@ package edu.psu.ist402.cleanride;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.Date;
@@ -96,7 +97,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
     public void addUser(String username, String password, String email, String fn, String ln){
-        SQLiteDatabase db = getWritableDatabase();
+//        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(USERNAME, username);
         values.put(PASSWORD, password);
@@ -104,13 +105,13 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(FIRST_NAME, fn);
         values.put(LAST_NAME, ln);
 
-        db.insert(TABLE_USERS, null, values);
-        db.close();
+        this.getWritableDatabase().insertOrThrow(TABLE_USERS, null, values);
+//        db.close();
     }
     public void addUserLocation(String state, String city, String sP, String eP, String eD, String eT,
                                 SimpleDateFormat dA, boolean a){
         String date = dA.format(new Date(Calendar.DAY_OF_MONTH));
-        SQLiteDatabase db = getWritableDatabase();
+//        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(STATE, state);
         values.put(CITY, city);
@@ -122,7 +123,27 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(ACTIVE, a);
         values.put(ENDING_TIME, eT);
 
-        db.insert(TABLE_USERLOCATION, null, values);
-        db.close();
+        this.getWritableDatabase().insertOrThrow(TABLE_USERLOCATION, null, values);
+//        db.close();
+    }
+    public boolean checkUniqueName(String username){
+        boolean isUsable;
+        int placeholder = 0;
+        Cursor cursor = this.getReadableDatabase().rawQuery("select * from users where username = '" + username + "';", null);
+
+        while (cursor.moveToNext()){
+            placeholder++;
+        }
+        if (placeholder > 1){
+            isUsable = false;
+        }
+        else{
+            isUsable = true;
+        }
+        return isUsable;
+    }
+    public Cursor getView(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("select * from results_view;", null);
+        return cursor;
     }
 }

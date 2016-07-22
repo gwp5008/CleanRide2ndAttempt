@@ -21,6 +21,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String username; private String password; private String email; private String firstName;
     private String lastName;
+
+    MyDBHandler handler = new MyDBHandler(this);
 //    private boolean isDriver;
 
     @Override
@@ -77,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerAttemptRegisterButton (View view){
-        MyDBHandler handler = new MyDBHandler(this);
         handler.addUser(username, password, email, firstName, lastName);
 
 //        if (isADriver.isChecked()){
