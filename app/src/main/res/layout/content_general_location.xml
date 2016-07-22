@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="edu.psu.ist402.cleanride.GeneralLocation"
+    tools:showIn="@layout/activity_general_location">
+
+    <Spinner
+        android:id="@+id/stateSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+    <Spinner
+        android:id="@+id/citySpinner"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_alignParentRight="true"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClickMap"
+        android:id="@+id/btnGetMap"
+        android:text="See Location"
+        android:layout_alignTop="@+id/driverBox"
+        android:layout_toEndOf="@+id/stateSpinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="State"
+        android:id="@+id/textState"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/stateSpinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="City"
+        android:id="@+id/textCity"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/citySpinner" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you a driver?"
+        android:layout_below="@+id/stateSpinner"
+        android:id="@+id/driverBox" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridFrameNetworks"
+        android:layout_below="@+id/btnGetMap"
+        android:visibility="gone">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/generalScrollView"
+            android:layout_alignTop="@+id/cityMap"
+            android:layout_toEndOf="@+id/btnGeneral2Specific"
+            android:numColumns="1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnGetMap"
+            android:id="@+id/cityMap"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+            android:src="@drawable/sc_map" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGeneral2Specific"
+            android:onClick="onClickGeneralNav"
+            android:layout_below="@id/cityMap"
+            android:text="Next Page"
+            android:visibility="visible" />
+    </FrameLayout>
+</RelativeLayout>
+
