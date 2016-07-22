@@ -56,38 +56,33 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query1 = "create table " + TABLE_USERS + "(" +
-                USER_ID + " integer primary key not null unique autoincrement, " + //might need to remove autoincrement here
-                USERNAME + " varchar(20) not null unique, " +
-                PASSWORD + " varchar(20) not null, " +
-                EMAIL + " varchar(30) not null, " +
-                FIRST_NAME + " varchar(20) not null, " +
-                LAST_NAME + " varchar(20) not null, ";
+        String query1 = "create table " + TABLE_USERS + "('" +
+                USER_ID + "' integer primary key autoincrement not null unique, '" + //might need to remove autoincrement here
+                USERNAME + "' varchar(20) not null, '" +
+                PASSWORD + "' varchar(20) not null, '" +
+                EMAIL + "' varchar(30) not null, '" +
+                FIRST_NAME + "' varchar(20) not null, '" +
+                LAST_NAME + "' varchar(20) not null);";
 
-        String query2 = "create table " + TABLE_USERLOCATION + "(" +
-                LOC_USERID + " integer not null unique, " +
-                STATE + " varchar(20) not null, " +
-                CITY + " varchar(20) not null, " +
-                STARTING_POINT + " varchar(4) not null, " +
-                ENDING_POINT + " varchar(4) not null, " +
-                ENDING_DATE + " varchar null(20), " +
-                ENDING_TIME + " varchar(10) not null, " +
-                DATE_ADDED + " text default current_timestamp, " +
-                DATE_UPDATED + " text default current_timestamp, " +
-                ACTIVE + " varchar(3) not null, " +
-                IS_DRIVER + " varchar(3) not null);" +
-                "foreign key(" + LOC_USERID + "));";
+        String query2 = "create table " + TABLE_USERLOCATION + "('" +
+                LOC_USERID + "' integer not null unique, '" +
+                STATE + "' varchar(20) not null, '" +
+                CITY + "' varchar(20) not null, '" +
+                STARTING_POINT + "' varchar(4) not null, '" +
+                ENDING_POINT + "' varchar(4) not null, '" +
+                ENDING_DATE + "' varchar(20) not null, '" +
+                ENDING_TIME + "' varchar(10) not null, '" +
+                DATE_ADDED + "' text default current_timestamp, '" +
+                DATE_UPDATED + "' text default current_timestamp, '" +
+                ACTIVE + "' varchar(3) not null, '" +
+                IS_DRIVER + "' varchar(3) not null, " +
+                "foreign key(" + LOC_USERID + ") references " + TABLE_USERS +
+                "(" + USER_ID + "));";
 
-        String query3 = "create view " + RESULTSVIEW + " as " +
-                "select u." + FIRST_NAME + ", u." + LAST_NAME + ", u." + EMAIL + ", ul."
-                + STARTING_POINT + ", ul." + STATE + ", ul." + CITY + "ul." + STARTING_POINT + "ul."
-                + ENDING_POINT + "ul." + ENDING_DATE + "ul." + ENDING_TIME + "from " + TABLE_USERS
-                + " u, " + TABLE_USERLOCATION + " ul where u." + USER_ID + " = ul." + LOC_USERID + ";";
-//                + " and ul." + CITY + " = '";+ the_current_users_city + "';"; **This needs added somehow
 
         db.execSQL(query1);
         db.execSQL(query2);
-        db.execSQL(query3);
+//        db.execSQL(query3);
     }
 
     @Override
@@ -141,6 +136,16 @@ public class MyDBHandler extends SQLiteOpenHelper{
             isUsable = true;
         }
         return isUsable;
+    }
+    public void createView(SQLiteDatabase db, String city){
+        String query3 = "create view " + RESULTSVIEW + " as " +
+                "select u." + FIRST_NAME + ", u." + LAST_NAME + ", u." + EMAIL + ", ul."
+                + STARTING_POINT + ", ul." + STATE + ", ul." + CITY + "ul." + STARTING_POINT + "ul."
+                + ENDING_POINT + "ul." + ENDING_DATE + "ul." + ENDING_TIME + "from " + TABLE_USERS
+                + " u, " + TABLE_USERLOCATION + " ul where u." + USER_ID + " = ul." + LOC_USERID + ";"
+                + " and ul." + CITY + " = '" + city + "';";
+
+        db.execSQL(query3);
     }
     public Cursor getView(){
         Cursor cursor = this.getReadableDatabase().rawQuery("select * from results_view;", null);
