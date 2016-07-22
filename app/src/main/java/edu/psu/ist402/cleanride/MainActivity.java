@@ -29,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void navToRegister(View view){
+        Intent goToRegister = new Intent(this, RegisterActivity.class);
+        startActivity(goToRegister);
+        this.finish();
+    }
     public void navToLogin(View view){
         Intent goToLogin = new Intent(this, LoginActivity.class);
         startActivity(goToLogin);
