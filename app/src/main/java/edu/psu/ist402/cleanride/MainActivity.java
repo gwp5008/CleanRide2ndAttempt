@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void navToGeneral(View view){
         if (isLoggedIn == true) {
-            //code needed here to check that user has logged in
             Intent goToGeneral = new Intent(this, GeneralLocation.class);
             startActivity(goToGeneral);
             this.finish();

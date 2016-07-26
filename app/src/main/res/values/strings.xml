@@ -4,4 +4,12 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_general_location">GeneralLocation</string>
+    <string-array name="states">
+        <item></item>
+        <item>Pennsylvania</item>
+    </string-array>
+    <string-array name="cities">
+        <item></item>
+        <item>State College</item>
+    </string-array>
 </resources>
