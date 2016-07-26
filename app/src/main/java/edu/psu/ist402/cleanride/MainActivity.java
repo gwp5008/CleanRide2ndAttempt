@@ -41,10 +41,21 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
     public void navToGeneral(View view){
-        //code needed here to check that user has logged in
-        Intent goToGeneral = new Intent(this, GeneralLocation.class);
-        startActivity(goToGeneral);
-        this.finish();
+        if (isLoggedIn == true) {
+            //code needed here to check that user has logged in
+            Intent goToGeneral = new Intent(this, GeneralLocation.class);
+            startActivity(goToGeneral);
+            this.finish();
+        }
+        else {
+            Snackbar.make(view, "You must login before proceeding.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+    }
+    public void performLogout(View view){
+        isLoggedIn = false;
+        Snackbar.make(view, "You are now logged out.", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     @Override

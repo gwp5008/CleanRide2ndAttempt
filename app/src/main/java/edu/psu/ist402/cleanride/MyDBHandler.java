@@ -82,7 +82,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         db.execSQL(query1);
         db.execSQL(query2);
-//        db.execSQL(query3);
     }
 
     @Override

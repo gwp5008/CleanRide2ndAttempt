@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        BtnListener listener = new BtnListener();
+        ((Button) findViewById(R.id.loginButton)).setOnClickListener(listener);
     }
     class BtnListener implements View.OnClickListener {
         @Override
