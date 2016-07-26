@@ -103,6 +103,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         this.getWritableDatabase().insertOrThrow(TABLE_USERS, null, values);
 //        db.close();
     }
+
     public void addUserLocation(String state, String city, String sP, String eP, String eD, String eT,
                                 SimpleDateFormat dA, boolean a){
         String date = dA.format(new Date(Calendar.DAY_OF_MONTH));
@@ -129,13 +130,30 @@ public class MyDBHandler extends SQLiteOpenHelper{
         while (cursor.moveToNext()){
             placeholder++;
         }
-        if (placeholder > 1){
+        if (placeholder >= 1){
             isUsable = false;
         }
         else{
             isUsable = true;
         }
+        cursor.close();
         return isUsable;
+    }
+    public void checkLogin(String username, String password){
+        int placeholder = 0;
+        Cursor cursor = this.getReadableDatabase().rawQuery("select * from users where username = '" + username +
+                "' and password = '" + password + "';", null);
+
+        while (cursor.moveToNext()) {
+            placeholder++;
+        }
+        if (placeholder == 1){
+            MainActivity.isLoggedIn = true;
+        }
+        else{
+            MainActivity.isLoggedIn = false;
+        }
+        cursor.close();
     }
     public void createView(SQLiteDatabase db, String city){
         String query3 = "create view " + RESULTSVIEW + " as " +

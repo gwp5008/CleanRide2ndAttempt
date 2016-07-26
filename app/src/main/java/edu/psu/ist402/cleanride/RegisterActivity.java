@@ -79,16 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerAttemptRegisterButton (View view){
-        handler.addUser(username, password, email, firstName, lastName);
-
-//        if (isADriver.isChecked()){
-//            isDriver = true;
-//        }
-//        else {
-//            isDriver = false;
-//        }
-        //code needed here for data store
-
+        if (handler.checkUniqueName(username) == true){
+            handler.addUser(username, password, email, firstName, lastName);
+            Snackbar.make(view, "You are now a registered user!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+        else {
+            Snackbar.make(view, "That username is already taken. Try again!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
     public void navToLogin(View view){
         Intent goToLogin = new Intent(this, LoginActivity.class);
