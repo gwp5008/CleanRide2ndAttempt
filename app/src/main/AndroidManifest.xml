@@ -29,6 +29,10 @@
         <activity
             android:name=".GeneralLocation"
             android:label="@string/title_activity_general_location"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SpecificLocation"
+            android:label="@string/title_activity_specific_location"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

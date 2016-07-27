@@ -12,4 +12,5 @@
         <item></item>
         <item>State College</item>
     </string-array>
+    <string name="title_activity_specific_location">SpecificLocation</string>
 </resources>

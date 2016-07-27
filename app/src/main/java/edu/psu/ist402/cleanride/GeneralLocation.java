@@ -1,5 +1,6 @@
 package edu.psu.ist402.cleanride;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ public class GeneralLocation extends AppCompatActivity {
     private Spinner citySpinner;
     private ArrayAdapter<CharSequence> stateAdapter;
     private ArrayAdapter<CharSequence> cityAdapter;
+    public static String state;
+    public static String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +73,22 @@ public class GeneralLocation extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+    public void onClickMap(View view){
+        if (stateSpinner.getSelectedItem().toString().equals("") || citySpinner.getSelectedItem().toString().equals("")){
+            Snackbar.make(view, "You must enter a city and state first!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+        else {
+            FrameLayout map = (FrameLayout) findViewById(R.id.gridFrameMap);
+            map.setVisibility(View.VISIBLE);
+        }
+    }
+    public void onClickGeneralNav(View view) {
+        state = stateSpinner.getSelectedItem().toString();
+        city = citySpinner.getSelectedItem().toString();
+        Intent goToSpecificA = new Intent(this, SpecificLocation.class);
+        startActivity(goToSpecificA);
+        this.finish();
     }
 }
