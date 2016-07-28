@@ -1,6 +1,7 @@
 package edu.psu.ist402.cleanride;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ public class GeneralLocation extends AppCompatActivity {
     private ArrayAdapter<CharSequence> cityAdapter;
     public static String state;
     public static String city;
+    public static Drawable mapChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class GeneralLocation extends AppCompatActivity {
         }
         else {
             FrameLayout map = (FrameLayout) findViewById(R.id.gridFrameMap);
+            setMapImage(view);
             map.setVisibility(View.VISIBLE);
         }
     }
@@ -90,5 +94,19 @@ public class GeneralLocation extends AppCompatActivity {
         Intent goToSpecificA = new Intent(this, SpecificLocation.class);
         startActivity(goToSpecificA);
         this.finish();
+    }
+    public void setMapImage(View view){
+        //    More code could go in this method in the event that we wanted to add more maps.
+        switch(stateSpinner.getSelectedItem().toString()){
+            case("Pennsylvania"):
+                switch(citySpinner.getSelectedItem().toString()){
+                    case("State College"):
+                        ImageView imgView=(ImageView) findViewById(R.id.cityMap);
+                        Drawable drawable  = getResources().getDrawable(R.drawable.sc_map);
+                        mapChoice = getResources().getDrawable(R.drawable.sc_map);
+                        imgView.setImageDrawable(drawable);
+                        break;
+                }
+        }
     }
 }
