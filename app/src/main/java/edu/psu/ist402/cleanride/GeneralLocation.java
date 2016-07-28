@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,10 +19,12 @@ import android.widget.Toast;
 public class GeneralLocation extends AppCompatActivity {
     private Spinner stateSpinner;
     private Spinner citySpinner;
+    private CheckBox isDriverBox;
     private ArrayAdapter<CharSequence> stateAdapter;
     private ArrayAdapter<CharSequence> cityAdapter;
     public static String state;
     public static String city;
+    public static String isDriver;
     public static Drawable mapChoice;
 
     @Override
@@ -33,6 +36,7 @@ public class GeneralLocation extends AppCompatActivity {
 
         stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
         citySpinner = (Spinner) findViewById(R.id.citySpinner);
+        isDriverBox = (CheckBox) findViewById(R.id.driverBox);
 
         stateAdapter = ArrayAdapter.createFromResource(this, R.array.states, android.R.layout.simple_spinner_item);
         stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -91,6 +95,12 @@ public class GeneralLocation extends AppCompatActivity {
     public void onClickGeneralNav(View view) {
         state = stateSpinner.getSelectedItem().toString();
         city = citySpinner.getSelectedItem().toString();
+        if (isDriverBox.isChecked()){
+            isDriver = "yes";
+        }
+        else {
+            isDriver = "no";
+        }
         Intent goToSpecificA = new Intent(this, SpecificLocation.class);
         startActivity(goToSpecificA);
         this.finish();
@@ -101,7 +111,7 @@ public class GeneralLocation extends AppCompatActivity {
             case("Pennsylvania"):
                 switch(citySpinner.getSelectedItem().toString()){
                     case("State College"):
-                        ImageView imgView=(ImageView) findViewById(R.id.cityMap);
+                        ImageView imgView=(ImageView) findViewById(R.id.cityMapGeneral);
                         Drawable drawable  = getResources().getDrawable(R.drawable.sc_map);
                         mapChoice = getResources().getDrawable(R.drawable.sc_map);
                         imgView.setImageDrawable(drawable);

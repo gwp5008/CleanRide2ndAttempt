@@ -12,4 +12,52 @@
     tools:context="edu.psu.ist402.cleanride.SpecificLocation"
     tools:showIn="@layout/activity_specific_location">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cityMapSpecific"
+                android:visibility="visible"
+                android:src="@drawable/sc_map"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/startingPoint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Starting Point"
+                android:id="@+id/startingPoint"
+                android:layout_gravity="center_horizontal" />
+
+            <Spinner
+                android:id="@+id/sPSpinner"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:drawable/btn_dropdown" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Ending Point"
+                android:id="@+id/endingPoint"
+                android:layout_gravity="center_horizontal" />
+
+            <Spinner
+                android:id="@+id/ePSpinner"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:drawable/btn_dropdown" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

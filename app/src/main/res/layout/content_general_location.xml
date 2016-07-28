@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnGetMap"
-            android:id="@+id/cityMap"
+            android:id="@+id/cityMapGeneral"
             android:layout_centerHorizontal="true"
             android:visibility="visible"/>
             <!--android:src="@drawable/sc_map" -->

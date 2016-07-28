@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
-    public static boolean isLoggedIn = false;
+    public static boolean isLoggedIn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
