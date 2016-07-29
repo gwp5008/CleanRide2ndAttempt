@@ -71,14 +71,16 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 STARTING_POINT + "' varchar(4) not null, '" +
                 ENDING_POINT + "' varchar(4) not null, '" +
                 ENDING_DATE + "' varchar(20) not null, '" +
-                ENDING_TIME + "' varchar(10) not null, '" +
-                DATE_ADDED + "' text default current_timestamp, '" +
-                DATE_UPDATED + "' text default current_timestamp, '" +
+                DATE_ADDED + "' varchar(20) not null, '" +
+                DATE_UPDATED + "' varchar(20), '" +
                 ACTIVE + "' varchar(3) not null, '" +
                 IS_DRIVER + "' varchar(3) not null, " +
                 "foreign key(" + LOC_USERID + ") references " + TABLE_USERS +
                 "(" + USER_ID + "));";
 
+//        ENDING_TIME + "' varchar(10) not null, '" +
+//        DATE_ADDED + "' text default current_timestamp, '" +
+//        DATE_UPDATED + "' text default current_timestamp, '" +
 
         db.execSQL(query1);
         db.execSQL(query2);
