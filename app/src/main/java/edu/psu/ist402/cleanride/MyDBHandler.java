@@ -65,7 +65,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 LAST_NAME + "' varchar(20) not null);";
 
         String query2 = "create table " + TABLE_USERLOCATION + "('" +
-                LOC_USERID + "' integer not null unique, '" +
+                LOC_USERID + "' integer not null, '" +
                 STATE + "' varchar(20) not null, '" +
                 CITY + "' varchar(20) not null, '" +
                 STARTING_POINT + "' varchar(4) not null, '" +
@@ -105,20 +105,22 @@ public class MyDBHandler extends SQLiteOpenHelper{
 //        db.close();
     }
 
-    public void addUserLocation(String state, String city, String sP, String eP, String eD, String eT,
-                                SimpleDateFormat dA, boolean a){
-        String date = dA.format(new Date(Calendar.DAY_OF_MONTH));
+    public void addUserLocation(int userID, String state, String city, String sP, String eP, String eD,
+                                String dA, String isDriver){
+//        String date = dA.format(new Date(Calendar.DAY_OF_MONTH));
 //        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(LOC_USERID, userID);
         values.put(STATE, state);
         values.put(CITY, city);
         values.put(STARTING_POINT, sP);
         values.put(ENDING_POINT, eP);
         values.put(ENDING_DATE, eD);
-        values.put(DATE_ADDED, date);
-        values.put(DATE_UPDATED, date);
-        values.put(ACTIVE, a);
-        values.put(ENDING_TIME, eT);
+        values.put(DATE_ADDED, dA);
+        values.put(DATE_UPDATED, dA);
+        values.put(ACTIVE, "active");
+        values.put(IS_DRIVER, isDriver);
+//        values.put(ENDING_TIME, eT);
 
         this.getWritableDatabase().insertOrThrow(TABLE_USERLOCATION, null, values);
 //        db.close();
@@ -169,5 +171,14 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public Cursor getView(){
         Cursor cursor = this.getReadableDatabase().rawQuery("select * from results_view;", null);
         return cursor;
+    }
+    public int getID(String username, String password){
+        int userID = 0;
+        Cursor cursor = this.getReadableDatabase().rawQuery("select user_id from users where username = '" + username + "' and password = '" + password + "';", null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            userID = cursor.getInt(0);
+        }
+        cursor.close();
+        return userID;
     }
 }

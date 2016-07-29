@@ -12,8 +12,12 @@ import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
     MyDBHandler handler = new MyDBHandler(this);
-    private EditText usernameField; private EditText passwordField;
-    private String username; private String password;
+    private EditText usernameField;
+    private EditText passwordField;
+    private String username;
+    private String password;
+
+    public static int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             password = passwordField.getText().toString();
 
             attemptLogin(view);
+            userID = handler.getID(username, password);
 
             usernameField.setText("Username");
             passwordField.setText("");

@@ -8,12 +8,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -27,7 +27,8 @@ public class SpecificLocation extends AppCompatActivity {
     private ArrayAdapter<CharSequence> sPNumbersAdapter;
     private ArrayAdapter<CharSequence> ePNumbersAdapter;
     private Button travelDate;
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar userCalendar = Calendar.getInstance();
+    private Calendar todaysCalendar = Calendar.getInstance();
     private TextView display;
     private int arrivalYear;
     private int arrivalMonth;
@@ -82,31 +83,47 @@ public class SpecificLocation extends AppCompatActivity {
             }
         });
     }
+    public SpecificLocation(){
+        currentYear = todaysCalendar.get(Calendar.YEAR);
+        currentMonth = todaysCalendar.get(Calendar.MONTH);
+        currentDayOfMonth = todaysCalendar.get(Calendar.DAY_OF_MONTH);
+    }
     public void showCalendar(View view){
-        new DatePickerDialog(this, listener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(this, listener, userCalendar.get(Calendar.YEAR), userCalendar.get(Calendar.MONTH),
+                userCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
     DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            display.setText("Selected date is: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+//            display.setText("Selected date is: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+            Toast.makeText(getBaseContext(), "Selected date is: "  + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year,
+                    Toast.LENGTH_LONG).show();
             arrivalYear = year;
             arrivalMonth = monthOfYear;
             arrivalDayOfMonth = dayOfMonth;
-            currentYear = calendar.get(Calendar.YEAR);
-            currentMonth = calendar.get(Calendar.MONTH);
-            currentDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+//            currentYear = todaysCalendar.get(Calendar.YEAR);
+//            currentMonth = todaysCalendar.get(Calendar.MONTH);
+//            currentDayOfMonth = todaysCalendar.get(Calendar.DAY_OF_MONTH);
         }
     };
     public void specficLocNav(View view){
         setInfo();
-        if (arrivalDate.equals("")){
+        if (arrivalDayOfMonth == 0 || arrivalYear == 0){
             Snackbar.make(view,
                     "You must make all selections; starting point, ending point, and your intended travel date.",
                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         else {
+//            Toast.makeText(getBaseContext(), "Selected date is: " + (currentMonth + 1) + "/" + currentDayOfMonth + "/" + currentYear,
+//                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getBaseContext(), "Selected date is: " + (arrivalMonth + 1) + "/" + arrivalDayOfMonth + "/" + arrivalYear,
+//                    Toast.LENGTH_LONG).show();
+
+//            public void addUserLocation(String state, String city, String sP, String eP, String eD, String eT,
+//                    SimpleDateFormat dA, boolean a)
+            handler.addUserLocation(LoginActivity.userID, GeneralLocation.state, GeneralLocation.city, startingPoint,
+                    endingPoint, arrivalDate, dateUpdated, GeneralLocation.isDriver);
             Intent goToUserDisplay = new Intent(this, UserDisplay.class);
             startActivity(goToUserDisplay);
             this.finish();

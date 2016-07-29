@@ -101,6 +101,8 @@ public class GeneralLocation extends AppCompatActivity {
         else {
             isDriver = "no";
         }
+//        Snackbar.make(view, "The value of isDriver is " + isDriver, Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
         Intent goToSpecificA = new Intent(this, SpecificLocation.class);
         startActivity(goToSpecificA);
         this.finish();
