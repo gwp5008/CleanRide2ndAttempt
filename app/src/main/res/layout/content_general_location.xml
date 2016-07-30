@@ -27,7 +27,7 @@
     <Button
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:onClick="onClickMap"
+        android:onClick="onClickGeneralMap"
         android:id="@+id/btnGetMap"
         android:text="See Location"
         android:layout_alignTop="@+id/driverBox"

@@ -2,6 +2,7 @@ package edu.psu.ist402.cleanride;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +51,10 @@ public class SpecificLocation extends AppCompatActivity {
         setContentView(R.layout.activity_specific_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ImageView imgView=(ImageView) findViewById(R.id.cityMapSpecific);
+        Drawable drawable  = GeneralLocation.mapChoice;
+        imgView.setImageDrawable(drawable);
 
         travelDate = (Button) findViewById(R.id.calendarBtn);
         display = (TextView) findViewById(R.id.textViewDisplay);
@@ -124,6 +130,7 @@ public class SpecificLocation extends AppCompatActivity {
 //                    SimpleDateFormat dA, boolean a)
             handler.addUserLocation(LoginActivity.userID, GeneralLocation.state, GeneralLocation.city, startingPoint,
                     endingPoint, arrivalDate, dateUpdated, GeneralLocation.isDriver);
+            handler.createView(GeneralLocation.city);
             Intent goToUserDisplay = new Intent(this, UserDisplay.class);
             startActivity(goToUserDisplay);
             this.finish();

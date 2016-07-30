@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             Snackbar.make(view, "You must login before proceeding.", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+
         }
     }
     public void performLogout(View view){

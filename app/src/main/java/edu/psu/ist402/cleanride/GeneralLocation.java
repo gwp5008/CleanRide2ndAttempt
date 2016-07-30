@@ -81,7 +81,7 @@ public class GeneralLocation extends AppCompatActivity {
             }
         });
     }
-    public void onClickMap(View view){
+    public void onClickGeneralMap(View view){
         if (stateSpinner.getSelectedItem().toString().equals("") || citySpinner.getSelectedItem().toString().equals("")){
             Snackbar.make(view, "You must enter a city and state first!", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -115,8 +115,8 @@ public class GeneralLocation extends AppCompatActivity {
                     case("State College"):
                         ImageView imgView=(ImageView) findViewById(R.id.cityMapGeneral);
                         Drawable drawable  = getResources().getDrawable(R.drawable.sc_map);
-                        mapChoice = getResources().getDrawable(R.drawable.sc_map);
                         imgView.setImageDrawable(drawable);
+                        mapChoice = getResources().getDrawable(R.drawable.sc_map);
                         break;
                 }
         }

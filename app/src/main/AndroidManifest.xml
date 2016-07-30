@@ -34,7 +34,10 @@
             android:name=".SpecificLocation"
             android:label="@string/title_activity_specific_location"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".UserDisplay"></activity>
+        <activity
+            android:name=".UserDisplay"
+            android:label="@string/title_activity_user_display"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void attemptLogin(View view){
         handler.checkLogin(username, password);
+//        handler.dropTables();
 
         if (MainActivity.isLoggedIn == true){
             Snackbar.make(view, "Congradulations! You are now logged in.", Snackbar.LENGTH_LONG)

@@ -93,4 +93,5 @@
         <item>49</item>
         <item>50</item>
     </string-array>
+    <string name="title_activity_user_display">UserDisplay</string>
 </resources>

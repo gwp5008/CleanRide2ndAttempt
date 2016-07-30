@@ -78,6 +78,8 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 "foreign key(" + LOC_USERID + ") references " + TABLE_USERS +
                 "(" + USER_ID + "));";
 
+
+
 //        ENDING_TIME + "' varchar(10) not null, '" +
 //        DATE_ADDED + "' text default current_timestamp, '" +
 //        DATE_UPDATED + "' text default current_timestamp, '" +
@@ -158,15 +160,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         cursor.close();
     }
-    public void createView(SQLiteDatabase db, String city){
-        String query3 = "create view " + RESULTSVIEW + " as " +
-                "select u." + FIRST_NAME + ", u." + LAST_NAME + ", u." + EMAIL + ", ul."
-                + STARTING_POINT + ", ul." + STATE + ", ul." + CITY + "ul." + STARTING_POINT + "ul."
-                + ENDING_POINT + "ul." + ENDING_DATE + "ul." + ENDING_TIME + "from " + TABLE_USERS
-                + " u, " + TABLE_USERLOCATION + " ul where u." + USER_ID + " = ul." + LOC_USERID + ";"
+    public void createView(String city){
+        String query3 = "create view " + RESULTSVIEW + " as "
+                + "select u." + FIRST_NAME + ", u." + LAST_NAME + ", u." + EMAIL
+                + ", ul." + STATE + ", ul." + CITY + ", ul." + STARTING_POINT + ", ul."
+                + ENDING_POINT + ", ul." + ENDING_DATE + " from " + TABLE_USERS
+                + " u, " + TABLE_USERLOCATION + " ul where u." + USER_ID + " = ul." + LOC_USERID
                 + " and ul." + CITY + " = '" + city + "';";
 
-        db.execSQL(query3);
+        this.getReadableDatabase().execSQL(query3);
     }
     public Cursor getView(){
         Cursor cursor = this.getReadableDatabase().rawQuery("select * from results_view;", null);
@@ -180,5 +182,10 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         cursor.close();
         return userID;
+    }
+    public void dropTables(){
+        String query4 = "drop table users";
+
+        this.getWritableDatabase().execSQL(query4);
     }
 }
