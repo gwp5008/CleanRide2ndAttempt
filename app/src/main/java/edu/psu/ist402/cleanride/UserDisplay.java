@@ -58,6 +58,7 @@ public class UserDisplay extends AppCompatActivity {
             buffer.append("Is A Driver?: " + allData.getString(8) + "\n\n");
         }
         showMessage("Nearby Users", buffer.toString());
+        allData.close();
     }
     public void showMessage(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

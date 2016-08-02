@@ -40,14 +40,14 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
     public static final String RESULTSVIEW = "results_view";
 
-    public static final String[] ALL_COLUMNS_USERS = {USER_ID, USERNAME, PASSWORD,
-            EMAIL, FIRST_NAME, LAST_NAME};
-
-    public static final String[] ALL_COLUMNS_USERLOCATION = {LOC_USERID, STATE, CITY,
-            ACTIVE, DATE_ADDED, DATE_UPDATED, STARTING_POINT, ENDING_POINT, ENDING_DATE, ENDING_TIME, IS_DRIVER};
-
-    public static final String[] ALL_COLUMNS_RESULTSVIEW = { FIRST_NAME, LAST_NAME, EMAIL, IS_DRIVER,
-            STATE, CITY, STARTING_POINT, ENDING_POINT, ENDING_DATE, ENDING_TIME};
+//    public static final String[] ALL_COLUMNS_USERS = {USER_ID, USERNAME, PASSWORD,
+//            EMAIL, FIRST_NAME, LAST_NAME};
+//
+//    public static final String[] ALL_COLUMNS_USERLOCATION = {LOC_USERID, STATE, CITY,
+//            ACTIVE, DATE_ADDED, DATE_UPDATED, STARTING_POINT, ENDING_POINT, ENDING_DATE, ENDING_TIME, IS_DRIVER};
+//
+//    public static final String[] ALL_COLUMNS_RESULTSVIEW = { FIRST_NAME, LAST_NAME, EMAIL, IS_DRIVER,
+//            STATE, CITY, STARTING_POINT, ENDING_POINT, ENDING_DATE, ENDING_TIME};
 
 //    Not sure if ContentProvider code is totally necesary.
     public MyDBHandler(Context context){
@@ -78,12 +78,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 "foreign key(" + LOC_USERID + ") references " + TABLE_USERS +
                 "(" + USER_ID + "));";
 
-
-
-//        ENDING_TIME + "' varchar(10) not null, '" +
-//        DATE_ADDED + "' text default current_timestamp, '" +
-//        DATE_UPDATED + "' text default current_timestamp, '" +
-
         db.execSQL(query1);
         db.execSQL(query2);
     }
@@ -104,6 +98,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(LAST_NAME, ln);
 
         this.getWritableDatabase().insertOrThrow(TABLE_USERS, null, values);
+        this.close();
 //        db.close();
     }
 
@@ -125,6 +120,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 //        values.put(ENDING_TIME, eT);
 
         this.getWritableDatabase().insertOrThrow(TABLE_USERLOCATION, null, values);
+        this.close();
 //        db.close();
     }
     public boolean checkUniqueName(String username){
@@ -176,8 +172,12 @@ public class MyDBHandler extends SQLiteOpenHelper{
     }
     public int getID(String username, String password){
         int userID = 0;
-        Cursor cursor = this.getReadableDatabase().rawQuery("select user_id from users where username = '" + username + "' and password = '" + password + "';", null);
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+        Cursor cursor = this.getReadableDatabase().rawQuery("select user_id from users where username = '" +
+                username + "' and password = '" + password + "';", null);
+//        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+//        }
+        while (cursor.moveToNext()){
             userID = cursor.getInt(0);
         }
         cursor.close();
@@ -187,5 +187,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
         String query4 = "drop table users";
 
         this.getWritableDatabase().execSQL(query4);
+        this.close();
     }
 }

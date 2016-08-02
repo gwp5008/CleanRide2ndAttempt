@@ -119,11 +119,12 @@ public class SpecificLocation extends AppCompatActivity {
         else {
             handler.addUserLocation(LoginActivity.userID, GeneralLocation.state, GeneralLocation.city, startingPoint,
                     endingPoint, arrivalDate, dateUpdated, GeneralLocation.isDriver);
-            try {
+
+            try{
                 handler.createView(GeneralLocation.city);
             }
             catch (Exception ex){
-                //no code needed here
+                //nothing needed here
             }
             Intent goToUserDisplay = new Intent(this, UserDisplay.class);
             startActivity(goToUserDisplay);

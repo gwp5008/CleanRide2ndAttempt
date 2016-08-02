@@ -64,17 +64,23 @@ public class LoginActivity extends AppCompatActivity {
         this.finish();
     }
     public void attemptLogin(View view){
-        handler.checkLogin(username, password);
-//        handler.dropTables();
-
-
         if (MainActivity.isLoggedIn == true){
-            Snackbar.make(view, "Congradulations! You are now logged in.", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "You are already logged in.", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else {
-            Snackbar.make(view, "You information does not match. You are not logged in.", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            handler.checkLogin(username, password);
+//        handler.dropTables();
+
+
+            if (MainActivity.isLoggedIn == true){
+                Snackbar.make(view, "Congradulations! You are now logged in.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            else {
+                Snackbar.make(view, "You information does not match. You are not logged in.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
         }
     }
 }
