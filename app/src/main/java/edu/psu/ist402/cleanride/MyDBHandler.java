@@ -164,7 +164,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         String query3 = "create view " + RESULTSVIEW + " as "
                 + "select u." + FIRST_NAME + ", u." + LAST_NAME + ", u." + EMAIL
                 + ", ul." + STATE + ", ul." + CITY + ", ul." + STARTING_POINT + ", ul."
-                + ENDING_POINT + ", ul." + ENDING_DATE + " from " + TABLE_USERS
+                + ENDING_POINT + ", ul." + ENDING_DATE + ", ul." + IS_DRIVER + " from " + TABLE_USERS
                 + " u, " + TABLE_USERLOCATION + " ul where u." + USER_ID + " = ul." + LOC_USERID
                 + " and ul." + CITY + " = '" + city + "';";
 

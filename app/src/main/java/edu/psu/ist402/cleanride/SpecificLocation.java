@@ -102,15 +102,11 @@ public class SpecificLocation extends AppCompatActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//            display.setText("Selected date is: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
             Toast.makeText(getBaseContext(), "Selected date is: "  + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year,
                     Toast.LENGTH_LONG).show();
             arrivalYear = year;
             arrivalMonth = monthOfYear;
             arrivalDayOfMonth = dayOfMonth;
-//            currentYear = todaysCalendar.get(Calendar.YEAR);
-//            currentMonth = todaysCalendar.get(Calendar.MONTH);
-//            currentDayOfMonth = todaysCalendar.get(Calendar.DAY_OF_MONTH);
         }
     };
     public void specficLocNav(View view){
@@ -121,16 +117,14 @@ public class SpecificLocation extends AppCompatActivity {
                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         else {
-//            Toast.makeText(getBaseContext(), "Selected date is: " + (currentMonth + 1) + "/" + currentDayOfMonth + "/" + currentYear,
-//                    Toast.LENGTH_LONG).show();
-//            Toast.makeText(getBaseContext(), "Selected date is: " + (arrivalMonth + 1) + "/" + arrivalDayOfMonth + "/" + arrivalYear,
-//                    Toast.LENGTH_LONG).show();
-
-//            public void addUserLocation(String state, String city, String sP, String eP, String eD, String eT,
-//                    SimpleDateFormat dA, boolean a)
             handler.addUserLocation(LoginActivity.userID, GeneralLocation.state, GeneralLocation.city, startingPoint,
                     endingPoint, arrivalDate, dateUpdated, GeneralLocation.isDriver);
-            handler.createView(GeneralLocation.city);
+            try {
+                handler.createView(GeneralLocation.city);
+            }
+            catch (Exception ex){
+                //no code needed here
+            }
             Intent goToUserDisplay = new Intent(this, UserDisplay.class);
             startActivity(goToUserDisplay);
             this.finish();
