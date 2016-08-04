@@ -52,8 +52,8 @@ public class SpecificLocation extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ImageView imgView=(ImageView) findViewById(R.id.cityMapSpecific);
-        Drawable drawable  = GeneralLocation.mapChoice;
+        ImageView imgView = (ImageView) findViewById(R.id.cityMapSpecific);
+        Drawable drawable = GeneralLocation.mapChoice;
         imgView.setImageDrawable(drawable);
 
         travelDate = (Button) findViewById(R.id.calendarBtn);
@@ -133,8 +133,20 @@ public class SpecificLocation extends AppCompatActivity {
     }
     public void setInfo(){
         arrivalDate = arrivalMonth + "/" + arrivalDayOfMonth + "/" + arrivalYear;
-        dateUpdated = currentMonth + "/" + currentDayOfMonth + "/" + currentYear;
+        dateUpdated = getCurrentMonth() + "/" + getCurrentDayOfMonth() + "/" + getCurrentYear();
         startingPoint = startingPointLetters.getSelectedItem().toString() + startingPointNumbers.getSelectedItem().toString();
         endingPoint = endingPointLetters.getSelectedItem().toString() + endingPointNumbers.getSelectedItem().toString();
+    }
+
+    public int getCurrentYear() {
+        return currentYear;
+    }
+
+    public int getCurrentMonth() {
+        return currentMonth;
+    }
+
+    public int getCurrentDayOfMonth() {
+        return currentDayOfMonth;
     }
 }

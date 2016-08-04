@@ -15,11 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText usernameField; private EditText passwordField; private EditText emailField; private EditText firstNameField;
+    private EditText usernameField;
+    private EditText passwordField;
+    private EditText emailField;
+    private EditText firstNameField;
     private EditText lastNameField;
 //    private CheckBox isADriver;
 
-    private String username; private String password; private String email; private String firstName;
+    private String username;
+    private String password;
+    private String email;
+    private String firstName;
     private String lastName;
 
     MyDBHandler handler = new MyDBHandler(this);

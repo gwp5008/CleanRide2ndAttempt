@@ -174,9 +174,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         int userID = 0;
         Cursor cursor = this.getReadableDatabase().rawQuery("select user_id from users where username = '" +
                 username + "' and password = '" + password + "';", null);
-//        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 
-//        }
         while (cursor.moveToNext()){
             userID = cursor.getInt(0);
         }
@@ -184,9 +182,11 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return userID;
     }
     public void dropTables(){
-        String query4 = "drop table users";
+        String query4 = "drop table users;";
+        String query5 = "drop table user_location;";
 
         this.getWritableDatabase().execSQL(query4);
+        this.getWritableDatabase().execSQL(query5);
         this.close();
     }
 }

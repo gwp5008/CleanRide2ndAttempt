@@ -119,6 +119,7 @@ public class GeneralLocation extends AppCompatActivity {
                         mapChoice = getResources().getDrawable(R.drawable.sc_map);
                         break;
                 }
+                break;
         }
     }
 }
