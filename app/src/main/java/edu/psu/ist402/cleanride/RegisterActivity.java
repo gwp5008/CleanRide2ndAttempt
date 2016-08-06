@@ -66,8 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
             firstName = firstNameField.getText().toString();
             lastName = lastNameField.getText().toString();
 
-            if (!username.equals("Username") && !password.equals("Password") && !email.equals("Email")
-                    && !firstName.equals("First Name") && !lastName.equals("Last Name")){
+            if ((!username.equals("Username") && !username.equals("")) && (!password.equals("Password") && !password.equals(""))
+                    && (!email.equals("Email") && !email.equals("")) && (!firstName.equals("First Name") && !firstName.equals(""))
+                    && (!lastName.equals("Last Name") && !lastName.equals(""))){
                 registerAttemptRegisterButton(view);
 
                 usernameField.setText("Username");
@@ -106,3 +107,4 @@ public class RegisterActivity extends AppCompatActivity {
         this.finish();
     }
 }
+//I wrote this class - Jinhyuk Kim
