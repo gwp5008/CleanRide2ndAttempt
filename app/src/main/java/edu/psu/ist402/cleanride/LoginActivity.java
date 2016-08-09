@@ -84,3 +84,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
+//I wrote this class - Brandon Gallucci

@@ -18,12 +18,12 @@ public class SpecificLocationTest extends TestCase {
     public void testGetCurrentMonth() throws Exception {
         int month = sL.getCurrentMonth();
 
-        assertEquals(7, month);
+        assertEquals(8, month);
     }
 
     public void testGetCurrentDayOfMonth() throws Exception {
         int day = sL.getCurrentDayOfMonth();
 
-        assertEquals(3, day);
+        assertEquals(6, day);
     }
 }

@@ -91,7 +91,7 @@ public class SpecificLocation extends AppCompatActivity {
     }
     public SpecificLocation(){
         currentYear = todaysCalendar.get(Calendar.YEAR);
-        currentMonth = todaysCalendar.get(Calendar.MONTH);
+        currentMonth = todaysCalendar.get(Calendar.MONTH) + 1;
         currentDayOfMonth = todaysCalendar.get(Calendar.DAY_OF_MONTH);
     }
     public void showCalendar(View view){
@@ -105,7 +105,7 @@ public class SpecificLocation extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Selected date is: "  + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year,
                     Toast.LENGTH_LONG).show();
             arrivalYear = year;
-            arrivalMonth = monthOfYear;
+            arrivalMonth = monthOfYear + 1;
             arrivalDayOfMonth = dayOfMonth;
         }
     };
@@ -117,11 +117,11 @@ public class SpecificLocation extends AppCompatActivity {
                     Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         else {
-            handler.addUserLocation(LoginActivity.userID, GeneralLocation.state, GeneralLocation.city, startingPoint,
+            handler.addUserLocation(view, LoginActivity.userID, GeneralLocation.state, GeneralLocation.city, startingPoint,
                     endingPoint, arrivalDate, dateUpdated, GeneralLocation.isDriver);
 
             try{
-                handler.createView(GeneralLocation.city);
+                handler.createView(view, GeneralLocation.city);
             }
             catch (Exception ex){
                 //nothing needed here
@@ -150,3 +150,5 @@ public class SpecificLocation extends AppCompatActivity {
         return currentDayOfMonth;
     }
 }
+
+//I wrote this class - George Pendleton

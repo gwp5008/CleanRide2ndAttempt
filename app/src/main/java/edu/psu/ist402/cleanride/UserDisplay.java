@@ -73,3 +73,4 @@ public class UserDisplay extends AppCompatActivity {
         this.finish();
     }
 }
+//I wrote this class - George Pendleton

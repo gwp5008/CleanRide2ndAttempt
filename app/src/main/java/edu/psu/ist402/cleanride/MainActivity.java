@@ -80,4 +80,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-// Initial testing to make sure that I can commit and push changes
+//I wrote this class - Xueren Zhang

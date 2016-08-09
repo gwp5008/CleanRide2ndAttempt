@@ -123,3 +123,4 @@ public class GeneralLocation extends AppCompatActivity {
         }
     }
 }
+//I wrote this class - George Pendleton

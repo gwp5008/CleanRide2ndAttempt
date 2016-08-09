@@ -25,7 +25,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Please enter information into all fields. If the username you choose is not unique, we'll let you know and you'll have to pick another. When you have successfully registered, you'll be able to login."
+                android:text="Please enter information into all fields.
+                If the username you choose is not unique, we'll let you know and you'll have to pick another.
+                Your password must be at least 7 characters long and contain at least one number.
+                When you have successfully registered, you'll be able to login."
                 android:id="@+id/registerDirections"
                 android:layout_gravity="center_horizontal" />
 

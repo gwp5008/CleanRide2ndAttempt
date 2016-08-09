@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,7 +60,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query1 = "create table " + TABLE_USERS + "('" +
-                USER_ID + "' integer primary key autoincrement not null unique, '" + //might need to remove autoincrement here
+                USER_ID + "' integer primary key autoincrement not null unique, '" +
                 USERNAME + "' varchar(20) not null, '" +
                 PASSWORD + "' varchar(20) not null, '" +
                 EMAIL + "' varchar(30) not null, '" +
@@ -78,17 +81,27 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 "foreign key(" + LOC_USERID + ") references " + TABLE_USERS +
                 "(" + USER_ID + "));";
 
-        db.execSQL(query1);
-        db.execSQL(query2);
+        try {
+            db.execSQL(query1);
+            db.execSQL(query2);
+        }
+        catch(Exception ex){
+//            Log.e("YOUR_APP_LOG_TAG", "I got an error", e);
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table if exists " + TABLE_USERS);
-        db.execSQL("drop table if exists " + TABLE_USERLOCATION);
-        onCreate(db);
+        try {
+            db.execSQL("drop table if exists " + TABLE_USERS);
+            db.execSQL("drop table if exists " + TABLE_USERLOCATION);
+            onCreate(db);
+        }
+        catch(Exception ex){
+//            Log.e("YOUR_APP_LOG_TAG", "I got an error", e);
+        }
     }
-    public void addUser(String username, String password, String email, String fn, String ln){
+    public void addUser(View view, String username, String password, String email, String fn, String ln){
 //        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(USERNAME, username);
@@ -97,15 +110,22 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(FIRST_NAME, fn);
         values.put(LAST_NAME, ln);
 
-        this.getWritableDatabase().insertOrThrow(TABLE_USERS, null, values);
-        this.close();
-//        db.close();
+        try{
+            this.getWritableDatabase().insert(TABLE_USERS, null, values);
+        }
+        catch(Exception ex){
+//            Log.e("YOUR_APP_LOG_TAG", "I got an error", e);
+            Snackbar.make(view, "Could not add user.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+        finally{
+            this.close();
+        }
     }
 
-    public void addUserLocation(int userID, String state, String city, String sP, String eP, String eD,
+    public void addUserLocation(View view, int userID, String state, String city, String sP, String eP, String eD,
                                 String dA, String isDriver){
-//        String date = dA.format(new Date(Calendar.DAY_OF_MONTH));
-//        SQLiteDatabase db = getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(LOC_USERID, userID);
         values.put(STATE, state);
@@ -117,11 +137,18 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(DATE_UPDATED, dA);
         values.put(ACTIVE, "active");
         values.put(IS_DRIVER, isDriver);
-//        values.put(ENDING_TIME, eT);
 
-        this.getWritableDatabase().insertOrThrow(TABLE_USERLOCATION, null, values);
-        this.close();
-//        db.close();
+        try{
+            this.getWritableDatabase().insertOrThrow(TABLE_USERLOCATION, null, values);
+        }
+        catch(Exception ex){
+//            Log.e("YOUR_APP_LOG_TAG", "I got an error", e);
+            Snackbar.make(view, "Could not add your location information.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+        finally{
+            this.close();
+        }
     }
     public boolean checkUniqueName(String username){
         boolean isUsable;
@@ -156,7 +183,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         cursor.close();
     }
-    public void createView(String city){
+    public void createView(View view, String city){
         String query3 = "create view " + RESULTSVIEW + " as "
                 + "select u." + FIRST_NAME + ", u." + LAST_NAME + ", u." + EMAIL
                 + ", ul." + STATE + ", ul." + CITY + ", ul." + STARTING_POINT + ", ul."
@@ -164,7 +191,14 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 + " u, " + TABLE_USERLOCATION + " ul where u." + USER_ID + " = ul." + LOC_USERID
                 + " and ul." + CITY + " = '" + city + "';";
 
-        this.getReadableDatabase().execSQL(query3);
+        try{
+            this.getReadableDatabase().execSQL(query3);
+        }
+        catch(Exception ex) {
+//            Log.e("YOUR_APP_LOG_TAG", "I got an error", e);
+            Snackbar.make(view, "Could not assemble your city's information.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
     public Cursor getView(){
         Cursor cursor = this.getReadableDatabase().rawQuery("select * from results_view;", null);
@@ -181,12 +215,21 @@ public class MyDBHandler extends SQLiteOpenHelper{
         cursor.close();
         return userID;
     }
-    public void dropTables(){
+    public void dropTables(View view){
         String query4 = "drop table users;";
         String query5 = "drop table user_location;";
 
-        this.getWritableDatabase().execSQL(query4);
-        this.getWritableDatabase().execSQL(query5);
-        this.close();
+        try{
+            this.getWritableDatabase().execSQL(query4);
+            this.getWritableDatabase().execSQL(query5);
+        }
+        catch(Exception ex){
+            Snackbar.make(view, "Could not delete tables.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+        finally {
+            this.close();
+        }
     }
 }
+//I wrote this class - George Pendleton

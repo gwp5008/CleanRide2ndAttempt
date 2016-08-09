@@ -66,17 +66,43 @@ public class RegisterActivity extends AppCompatActivity {
             firstName = firstNameField.getText().toString();
             lastName = lastNameField.getText().toString();
 
+            boolean isValidPass = false;
+            char[] passwordChecker;
+            int counter = 0;
+
             if ((!username.equals("Username") && !username.equals("")) && (!password.equals("Password") && !password.equals(""))
                     && (!email.equals("Email") && !email.equals("")) && (!firstName.equals("First Name") && !firstName.equals(""))
                     && (!lastName.equals("Last Name") && !lastName.equals(""))){
-                registerAttemptRegisterButton(view);
 
-                usernameField.setText("Username");
-                passwordField.setText("Password");
-                emailField.setText("Email");
-                firstNameField.setText("First Name");
-                lastNameField.setText("Last Name");
-//                isADriver.setChecked(false);
+                passwordChecker = password.toCharArray();
+                while (counter < password.length()){
+                    if (passwordChecker[counter] >= 48 && passwordChecker[counter] <= 57 && password.length() >= 7){
+                        isValidPass = true;
+                    }
+                    counter++;
+                }
+                if (isValidPass == true){
+                    if (handler.checkUniqueName(username) == true) {
+                        handler.addUser(view, username, password, email, firstName, lastName);
+                        Snackbar.make(view, "You are now a registered user!", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+                        usernameField.setText("Username");
+                        passwordField.setText("Password");
+                        emailField.setText("Email");
+                        firstNameField.setText("First Name");
+                        lastNameField.setText("Last Name");
+                    }
+                    else{
+                        Snackbar.make(view, "That username is already taken. Try again!", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+                else{
+                    Snackbar.make(view, "Make sure that your password is at least 7 characters" +
+                            " and contains at least 1 number.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
             else{
                 Snackbar.make(view, "You must enter a value into each field!", Snackbar.LENGTH_LONG)
@@ -85,17 +111,17 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void registerAttemptRegisterButton (View view){
-        if (handler.checkUniqueName(username) == true){
-            handler.addUser(username, password, email, firstName, lastName);
-            Snackbar.make(view, "You are now a registered user!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-        else {
-            Snackbar.make(view, "That username is already taken. Try again!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    }
+//    public void registerAttemptRegisterButton (View view){
+//        if (handler.checkUniqueName(username) == true){
+//            handler.addUser(view, username, password, email, firstName, lastName);
+//            Snackbar.make(view, "You are now a registered user!", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+//        }
+//        else {
+//            Snackbar.make(view, "That username is already taken. Try again!", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+//        }
+//    }
     public void navToLogin(View view){
         Intent goToLogin = new Intent(this, LoginActivity.class);
         startActivity(goToLogin);
